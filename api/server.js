@@ -1,8 +1,8 @@
 // build your server here and require it from index.js
 const express = require('express')
-const server = express()
-const knex = require('../knexfile')
 const projectsRouter = require('./project/router')
+
+const server = express()
 
 server.use(express.json())
 server.use('/api/projects', projectsRouter)
