@@ -15,18 +15,19 @@ router.get('/', (req, res, next) => {
 router.post('/', async (req, res, next) => {
     try {
         const project = await Project.addProject(req.body)
-        res.status(201).json({
-            project_id: project.project_id,
-            project_name: project.project_name,
-            project_description: project.project_description,
-            project_completed: project.project_completed === 1 ? true : false
-        })
-    } catch(err){
+        if (project.project_name) {
+            res.status(201).json({
+                project_id: project.project_id,
+                project_name: project.project_name,
+                project_description: project.project_description,
+                project_completed: project.project_completed === 1 ? true : false
+            })
+        } else {
+            next({ status: 400, message: 'Project name is required!' })
+        }
+    } catch (err) {
         next(err)
     }
-    
-
-
 })
 
 module.exports = router
