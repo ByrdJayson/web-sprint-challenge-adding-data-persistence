@@ -23,6 +23,8 @@ exports.up = async function(knex) {
   })
   .createTable('project_resources', (t) => {
     t.increments('project_resource_id').unsigned().primary()
+    t.integer('project_id').notNullable().references('project_id').inTable('projects')
+    t.integer('resource_id').notNullable().references('resource_id').inTable('resources')
 
   })
 };
